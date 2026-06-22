@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇨🇦 溫哥華旅遊手冊</title>
+<style>
+  :root {
+    --bg: #0f1923;
+    --surface: #1a2635;
+    --surface2: #223044;
+    --border: #2d4060;
+    --accent: #4a9eff;
+    --accent2: #00d4aa;
+    --warn: #ff8c42;
+    --danger: #ff4d6d;
+    --success: #00c896;
+    --gold: #ffd166;
+    --purple: #9b72cf;
+    --text: #e8f0fe;
+    --text2: #8fa8c8;
+    --text3: #5a7a9a;
+    --rocky: #4caf8a;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* Header */
+  .app-header {
+    background: linear-gradient(135deg, #0d2137 0%, #1a3a5c 50%, #0d2137 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .app-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .app-title h1 { font-size: 18px; font-weight: 700; color: var(--text); }
+  .app-title .subtitle { font-size: 11px; color: var(--text2); }
+
+  /* Nav tabs */
+  .nav-tabs {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    padding: 8px 14px;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    cursor: pointer;
+    white-space: nowrap;
+    border: none;
+    background: transparent;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+  .nav-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    background: rgba(74,158,255,0.08);
+  }
+  .nav-tab:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.04); }
+
+  /* Main */
+  .main { padding: 16px 16px 80px; max-width: 800px; margin: 0 auto; }
+
+  /* Page */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .card-title { font-size: 14px; font-weight: 600; }
+  .card-subtitle { font-size: 11px; color: var(--text2); margin-top: 1px; }
+  .card-chevron {
+    color: var(--text3);
+    font-size: 12px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .card-chevron.open { transform: rotate(180deg); }
+  .card-body {
+    display: none;
+    padding: 0 16px 14px;
+    border-top: 1px solid var(--border);
+  }
+  .card-body.open { display: block; }
+
+  /* Always visible summary */
+  .card-summary {
+    padding: 10px 16px 14px;
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    gap: 3px;
+  }
+  .badge-success { background: rgba(0,200,150,0.15); color: var(--success); }
+  .badge-warn { background: rgba(255,140,66,0.15); color: var(--warn); }
+  .badge-danger { background: rgba(255,77,109,0.15); color: var(--danger); }
+  .badge-accent { background: rgba(74,158,255,0.15); color: var(--accent); }
+  .badge-gold { background: rgba(255,209,102,0.15); color: var(--gold); }
+  .badge-purple { background: rgba(155,114,207,0.15); color: var(--purple); }
+
+  /* Info rows */
+  .info-row {
+    display: flex;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label {
+    font-size: 11px;
+    color: var(--text2);
+    min-width: 72px;
+    padding-top: 1px;
+    flex-shrink: 0;
+  }
+  .info-value { font-size: 13px; color: var(--text); flex: 1; }
+
+  /* Alert boxes */
+  .alert {
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    margin: 8px 0;
+    font-size: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .alert-warn { background: rgba(255,140,66,0.1); border: 1px solid rgba(255,140,66,0.3); color: var(--warn); }
+  .alert-success { background: rgba(0,200,150,0.1); border: 1px solid rgba(0,200,150,0.3); color: var(--success); }
+  .alert-info { background: rgba(74,158,255,0.1); border: 1px solid rgba(74,158,255,0.3); color: var(--accent); }
+  .alert-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Timeline */
+  .timeline { padding: 4px 0; }
+  .timeline-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    position: relative;
+  }
+  .timeline-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 34px;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .timeline-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .timeline-content { flex: 1; padding-top: 4px; }
+  .timeline-date { font-size: 11px; color: var(--text2); }
+  .timeline-title { font-size: 13px; font-weight: 600; margin: 2px 0; }
+  .timeline-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
+  .timeline-badge { margin-top: 4px; }
+
+  /* Flight card */
+  .flight-route {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0;
+  }
+  .flight-point { flex: 1; }
+  .flight-code { font-size: 22px; font-weight: 700; color: var(--text); }
+  .flight-time { font-size: 16px; font-weight: 600; color: var(--accent); }
+  .flight-city { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .flight-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  .flight-line { width: 60px; height: 1px; background: var(--border); }
+  .flight-duration { font-size: 10px; color: var(--text3); white-space: nowrap; }
+  .flight-plane { font-size: 16px; }
+
+  /* Hotel card */
+  .hotel-stat {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 8px 0;
+  }
+  .hotel-stat-item {
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    font-size: 11px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Checklist */
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .check-content { flex: 1; }
+  .check-title { font-size: 13px; font-weight: 500; }
+  .check-desc { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .check-cost { font-size: 11px; color: var(--accent); margin-top: 3px; font-weight: 600; }
+
+  /* Cost table */
+  .cost-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 8px;
+  }
+  .cost-row:last-child { border-bottom: none; }
+  .cost-name { font-size: 12px; flex: 1; }
+  .cost-amount { font-size: 13px; font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .cost-total-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    margin-top: 4px;
+    border-top: 2px solid var(--border);
+  }
+  .cost-total-name { font-size: 13px; font-weight: 700; }
+  .cost-total-amount { font-size: 18px; font-weight: 700; color: var(--accent); }
+
+  /* Section title */
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin: 16px 0 8px;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #0d2137, #1a3a5c, #0d2137);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '🇨🇦';
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    font-size: 80px;
+    opacity: 0.08;
+  }
+  .hero-label { font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+  .hero-title { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+  .hero-subtitle { font-size: 13px; color: var(--text2); margin-bottom: 16px; }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.05);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    text-align: center;
+  }
+  .hero-stat-num { font-size: 20px; font-weight: 700; color: var(--accent); }
+  .hero-stat-label { font-size: 10px; color: var(--text2); margin-top: 2px; }
+
+  /* Rocky highlights */
+  .highlight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .highlight-item {
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    border-left: 3px solid;
+  }
+  .highlight-item.green { border-color: var(--accent2); }
+  .highlight-item.gold { border-color: var(--gold); }
+  .highlight-item.purple { border-color: var(--purple); }
+  .highlight-item.accent { border-color: var(--accent); }
+  .highlight-title { font-size: 12px; font-weight: 600; }
+  .highlight-desc { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+  /* Compass card section */
+  .compass-fee {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    margin: 4px 0;
+    font-size: 12px;
+  }
+  .compass-fee-name { color: var(--text2); }
+  .compass-fee-value { font-weight: 600; color: var(--accent); }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 12px 0;
+  }
+
+  /* Bottom safe area */
+  .bottom-spacer { height: 32px; }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .hero-stats { grid-template-columns: repeat(3, 1fr); }
+    .highlight-grid { grid-template-columns: 1fr; }
+    .flight-code { font-size: 18px; }
+    .flight-time { font-size: 14px; }
+  }
+
+  /* Scroll to top */
+  .scroll-hint {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text3);
+    padding: 8px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="app-title">
+    <div>
+      <h1>溫哥華旅遊手冊</h1>
+      <div class="subtitle">2026/06/24 – 07/05 ｜ 陳宥中 ＋ 郭佩萍</div>
+    </div>
+  </div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('overview')">總覽</button>
+    <button class="nav-tab" onclick="showPage('flight')">機票</button>
+    <button class="nav-tab" onclick="showPage('hotel')">住宿</button>
+    <button class="nav-tab" onclick="showPage('itinerary')">行程</button>
+    <button class="nav-tab" onclick="showPage('rocky')">洛磯山</button>
+    <button class="nav-tab" onclick="showPage('transport')">交通</button>
+    <button class="nav-tab" onclick="showPage('checklist')">待辦</button>
+    <button class="nav-tab" onclick="showPage('cost')">費用</button>
+  </nav>
+</div>
+
+<div class="main">
+
+  <!-- ==================== 總覽 ==================== -->
+  <div class="page active" id="page-overview">
+
+    <div class="hero">
+      <div class="hero-label">Canada · British Columbia</div>
+      <div class="hero-title">溫哥華 ＋ 洛磯山脈</div>
+      <div class="hero-subtitle">CHEN/YUCHUNG · KUO/PEIPING · 訂位代號 NWJH2C</div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">11</div>
+          <div class="hero-stat-label">旅行天數</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-label">洛磯山天數</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">7/1</div>
+          <div class="hero-stat-label">★國慶煙火</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">重要提醒</div>
+    <div class="alert alert-warn">
+      <div class="alert-icon">⚠️</div>
+      <div>洛磯山團現場必付現金 USD$208/人（景點費）+ USD$15/人/天（小費）+ CAD$5/人/天（燃油）</div>
+    </div>
+    <div class="alert alert-warn">
+      <div class="alert-icon">⚠️</div>
+      <div>7/4 凌晨 01:30 出發，7/3 晚上 11:00 前必須抵達 YVR 機場</div>
+    </div>
+    <div class="alert alert-warn">
+      <div class="alert-icon">⚠️</div>
+      <div>洛磯山 6/27 集合：River Rock Hotel 門口 <strong>07:00</strong>，遲到10分鐘車子離開不等</div>
+    </div>
+
+    <div class="section-title">行程概覽</div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:rgba(74,158,255,0.2)">✈️</div>
+        <div class="timeline-content">
+          <div class="timeline-date">6/24（三）</div>
+          <div class="timeline-title">出發 宜蘭 15:20 → 桃園 T2</div>
+          <div class="timeline-desc">HX261 19:20 起飛 → 香港轉機（地勤帶領）→ HX080 → 溫哥華 20:15 抵達</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:rgba(74,158,255,0.2)">🏙️</div>
+        <div class="timeline-content">
+          <div class="timeline-date">6/25–6/26（四–五）</div>
+          <div class="timeline-title">溫哥華市區自由行</div>
+          <div class="timeline-desc">Canada Place · FlyOver Canada · Gastown · 史丹利公園 · 固蘭島市集</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:rgba(76,175,138,0.2)">🏔️</div>
+        <div class="timeline-content">
+          <div class="timeline-date">6/27–6/30（六–二）</div>
+          <div class="timeline-title">★ 洛磯山脈 4 日團</div>
+          <div class="timeline-desc">Qutours BAA4 · 夢蓮湖 · 露易絲湖 · 哥倫比亞冰川 · 班夫</div>
+          <div class="timeline-badge"><span class="badge badge-warn">現場付現金</span></div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:rgba(255,209,102,0.2)">🎆</div>
+        <div class="timeline-content">
+          <div class="timeline-date">7/1（三）</div>
+          <div class="timeline-title">★ 加拿大國慶日</div>
+          <div class="timeline-desc">英吉利灣煙火（免費）· 全天留市區</div>
+          <div class="timeline-badge"><span class="badge badge-gold">限定體驗</span></div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:rgba(155,114,207,0.2)">🚡</div>
+        <div class="timeline-content">
+          <div class="timeline-date">7/2（四）</div>
+          <div class="timeline-title">★ Sea to Sky Gondola</div>
+          <div class="timeline-desc">Squamish 近郊一日遊 · Sky Pilot 吊橋 · 峽灣景觀</div>
+          <div class="timeline-badge"><span class="badge badge-purple">需提前訂票</span></div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:rgba(255,140,66,0.2)">🛍️</div>
+        <div class="timeline-content">
+          <div class="timeline-date">7/3（五）</div>
+          <div class="timeline-title">退房 → 購物 → 機場</div>
+          <div class="timeline-desc">10AM 退房 · 行李寄 Bounce · McArthurGlen Outlet · 深夜出發</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:rgba(0,200,150,0.2)">🏠</div>
+        <div class="timeline-content">
+          <div class="timeline-date">7/5（日）</div>
+          <div class="timeline-title">14:45 抵達桃園 T2</div>
+          <div class="timeline-desc">HX081 7/4 01:30 → 香港轉機 5h55m → HX254 → 桃園</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 機票 ==================== -->
+  <div class="page" id="page-flight">
+
+    <div class="section-title">旅客資訊</div>
+    <div class="card">
+      <div class="card-summary">
+        <div class="info-row">
+          <div class="info-label">旅客 1</div>
+          <div class="info-value">CHEN/YUCHUNG MR · 票號 8512613210220</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">旅客 2</div>
+          <div class="info-value">KUO/PEIPING MS · 票號 8512613210219</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">訂位代號</div>
+          <div class="info-value" style="color:var(--accent);font-weight:700;font-size:18px">NWJH2C</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">訂單編號</div>
+          <div class="info-value">ORD0030282733（易遊網）</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">行李</div>
+          <div class="info-value">每人 2 件 × 23KG 托運</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">去程</div>
+    <div class="card">
+      <div class="card-summary">
+        <div class="flight-route">
+          <div class="flight-point">
+            <div class="flight-code">TPE</div>
+            <div class="flight-time">19:20</div>
+            <div class="flight-city">桃園 T2</div>
+            <div class="flight-city">6/24（三）</div>
+          </div>
+          <div class="flight-arrow">
+            <div class="flight-plane">✈️</div>
+            <div class="flight-line"></div>
+            <div class="flight-duration">HX-261 · 2hr</div>
+          </div>
+          <div class="flight-point" style="text-align:right">
+            <div class="flight-code">HKG</div>
+            <div class="flight-time">21:20</div>
+            <div class="flight-city">香港 T1</div>
+            <div class="flight-city">6/24（三）</div>
+          </div>
+        </div>
+        <div class="alert alert-warn">
+          <div class="alert-icon">⚠️</div>
+          <div>轉機 <strong>1小時5分</strong>，T1 → T2，<strong>不同航廈</strong>！地勤人員帶領，行李直掛 YVR</div>
+        </div>
+        <div class="flight-route" style="margin-top:8px">
+          <div class="flight-point">
+            <div class="flight-code">HKG</div>
+            <div class="flight-time">22:25</div>
+            <div class="flight-city">香港 T2</div>
+          </div>
+          <div class="flight-arrow">
+            <div class="flight-plane">✈️</div>
+            <div class="flight-line"></div>
+            <div class="flight-duration">HX-080 · 12hr50m</div>
+          </div>
+          <div class="flight-point" style="text-align:right">
+            <div class="flight-code">YVR</div>
+            <div class="flight-time">20:15</div>
+            <div class="flight-city">溫哥華</div>
+            <div class="flight-city">6/24（當地時間）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">回程</div>
+    <div class="card">
+      <div class="card-summary">
+        <div class="flight-route">
+          <div class="flight-point">
+            <div class="flight-code">YVR</div>
+            <div class="flight-time">01:30</div>
+            <div class="flight-city">溫哥華</div>
+            <div class="flight-city">7/4（六）凌晨</div>
+          </div>
+          <div class="flight-arrow">
+            <div class="flight-plane">✈️</div>
+            <div class="flight-line"></div>
+            <div class="flight-duration">HX-081 · 14hr30m</div>
+          </div>
+          <div class="flight-point" style="text-align:right">
+            <div class="flight-code">HKG</div>
+            <div class="flight-time">07:00</div>
+            <div class="flight-city">香港 T1</div>
+            <div class="flight-city">7/5（日）</div>
+          </div>
+        </div>
+        <div class="alert alert-success">
+          <div class="alert-icon">✅</div>
+          <div>轉機 <strong>5小時55分</strong>，T1 → T2，時間非常充裕，可在機場休息用餐</div>
+        </div>
+        <div class="flight-route" style="margin-top:8px">
+          <div class="flight-point">
+            <div class="flight-code">HKG</div>
+            <div class="flight-time">12:55</div>
+            <div class="flight-city">香港 T2</div>
+            <div class="flight-city">7/5（日）</div>
+          </div>
+          <div class="flight-arrow">
+            <div class="flight-plane">✈️</div>
+            <div class="flight-line"></div>
+            <div class="flight-duration">HX-254 · 1hr50m</div>
+          </div>
+          <div class="flight-point" style="text-align:right">
+            <div class="flight-code">TPE</div>
+            <div class="flight-time">14:45</div>
+            <div class="flight-city">桃園 T2</div>
+            <div class="flight-city">7/5（日）🏠</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">改退票費用</div>
+    <div class="card">
+      <div class="card-summary">
+        <div class="info-row"><div class="info-label">改期（起飛前）</div><div class="info-value">NT$1,544/人 + 易遊網 NT$500/人</div></div>
+        <div class="info-row"><div class="info-label">退票（起飛前）</div><div class="info-value">NT$3,041/人 + 易遊網 NT$800/人</div></div>
+        <div class="info-row"><div class="info-label">緊急聯絡</div><div class="info-value">香港 (852) 3916-3666 ｜ 桃園 0080-185-3033</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 住宿 ==================== -->
+  <div class="page" id="page-hotel">
+
+    <!-- Sandman -->
+    <div class="section-title">第一段 · Richmond</div>
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(74,158,255,0.15)">🏨</div>
+          <div>
+            <div class="card-title">Sandman Hotel & Suites</div>
+            <div class="card-subtitle">6/24–6/27（3晚）· Richmond</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="badge badge-success">✅ 已訂</span>
+          <span class="card-chevron">▼</span>
+        </div>
+      </div>
+      <div class="card-summary">
+        <div class="info-row">
+          <div class="info-label">費用</div>
+          <div class="info-value" style="color:var(--accent);font-weight:600">NT$30,667</div>
+        </div>
+        <div class="alert alert-success" style="margin-top:4px">
+          <div class="alert-icon">✅</div>
+          <div>行李寄放免費！退房後至前台辦理，6/27–6/29均可寄放</div>
+        </div>
+        <div class="alert alert-info" style="margin-top:4px">
+          <div class="alert-icon">🚌</div>
+          <div>接駁車 24小時，每 30–35 分鐘一班，<strong>3樓出境大廳</strong>（Departures）Courtesy Shuttle 候車區。無需預約，可能提前或延後 10 分鐘</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="divider"></div>
+        <div class="info-row"><div class="info-label">地址</div><div class="info-value">3233 Saint Edwards Drive, Richmond, BC V6X 3K4</div></div>
+        <div class="info-row"><div class="info-label">電話</div><div class="info-value">604-303-8888</div></div>
+        <div class="info-row"><div class="info-label">評分</div><div class="info-value">7.9 / 好（1,650則）</div></div>
+        <div class="info-row"><div class="info-label">設施</div><div class="info-value">小廚房 · 游泳池 · 免費停車 · 餐廳</div></div>
+        <div class="info-row"><div class="info-label">交通</div><div class="info-value">Bridgeport SkyTrain 站步行 10 分鐘 · Canada Line 25 分鐘到市中心</div></div>
+        <div class="divider"></div>
+        <div class="alert alert-warn">
+          <div class="alert-icon">⚠️</div>
+          <div>6/27 早上出發洛磯山，集合點 River Rock Hotel 距飯店約 10 分鐘</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rocky Mountain hotels -->
+    <div class="section-title">洛磯山跟團住宿（含在團費）</div>
+    <div class="card">
+      <div class="card-summary">
+        <div class="info-row"><div class="info-label">D1（6/27）</div><div class="info-value">Sandman Hotel Revelstoke（或同等）</div></div>
+        <div class="info-row"><div class="info-label">D2（6/28）</div><div class="info-value">班夫小鎮飯店（Elk+Avenue 等）</div></div>
+        <div class="info-row"><div class="info-label">D3（6/29）</div><div class="info-value">Hilltop Inn Salmon Arm</div></div>
+        <div class="alert alert-warn" style="margin-top:8px">
+          <div class="alert-icon">💳</div>
+          <div>需攜帶信用卡辦理飯店押金，退房後 7–14 工作天退還</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carmana -->
+    <div class="section-title">第三段 · West End</div>
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(0,212,170,0.15)">🏠</div>
+          <div>
+            <div class="card-title">Carmana Hotel & Suites</div>
+            <div class="card-subtitle">6/30–7/3（3晚）· West End</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="badge badge-success">✅ 已訂</span>
+          <span class="card-chevron">▼</span>
+        </div>
+      </div>
+      <div class="card-summary">
+        <div class="info-row">
+          <div class="info-label">費用</div>
+          <div class="info-value" style="color:var(--accent);font-weight:600">NT$30,818 <span style="font-size:11px;color:var(--success)">（免費取消）</span></div>
+        </div>
+        <div class="alert alert-warn" style="margin-top:4px">
+          <div class="alert-icon">⚠️</div>
+          <div>7/3 上午 10:00 退房後，行李寄 <strong>Bounce Waterfront Station</strong>，7/4 凌晨出發前取回</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="divider"></div>
+        <div class="info-row"><div class="info-label">地址</div><div class="info-value">1128 Alberni Street, West End, Vancouver, BC V6E 4R6</div></div>
+        <div class="info-row"><div class="info-label">評分</div><div class="info-value">9.4 / 極佳（120則）</div></div>
+        <div class="info-row"><div class="info-label">設施</div><div class="info-value">自炊廚房 · 洗衣機 · 健身房 · 行李寄存 · WiFi</div></div>
+        <div class="info-row"><div class="info-label">交通</div><div class="info-value">Burrard SkyTrain 站 430 公尺 · Robson 街步行可到</div></div>
+        <div class="info-row"><div class="info-label">入住</div><div class="info-value">6/30 下午 4:00（已告知房東晚到）</div></div>
+      </div>
+    </div>
+
+    <!-- Bounce -->
+    <div class="section-title">7/3 行李寄存</div>
+    <div class="card">
+      <div class="card-summary">
+        <div class="info-row"><div class="info-label">平台</div><div class="info-value">Bounce（App 預訂）</div></div>
+        <div class="info-row"><div class="info-label">地點</div><div class="info-value">Waterfront Station 旁，Carmana 步行 10 分鐘</div></div>
+        <div class="info-row"><div class="info-label">件數</div><div class="info-value">2 件標準行李箱</div></div>
+        <div class="info-row"><div class="info-label">費用</div><div class="info-value">約 NT$300–500</div></div>
+        <div class="alert alert-warn" style="margin-top:8px">
+          <div class="alert-icon">⚠️</div>
+          <div>取件時確認營業時間，7/4 凌晨 01:30 出發前需取回行李</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 行程 ==================== -->
+  <div class="page" id="page-itinerary">
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(74,158,255,0.15)">✈️</div>
+          <div>
+            <div class="card-title">6/24（三）出發日</div>
+            <div class="card-subtitle">宜蘭 → 桃園 → 香港 → 溫哥華</div>
+          </div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row"><div class="info-label">15:20</div><div class="info-value">宜蘭搭機場接送出發</div></div>
+        <div class="info-row"><div class="info-label">約17:00</div><div class="info-value">抵達桃園 T2，辦理登機手續</div></div>
+        <div class="info-row"><div class="info-label">19:20</div><div class="info-value">HX261 起飛 → 香港</div></div>
+        <div class="info-row"><div class="info-label">21:20</div><div class="info-value">抵香港 T1 → 地勤帶領 → T2（1h5m 轉機）</div></div>
+        <div class="info-row"><div class="info-label">22:25</div><div class="info-value">HX080 起飛 → 溫哥華</div></div>
+        <div class="info-row"><div class="info-label">20:15</div><div class="info-value">抵溫哥華 YVR → 3樓接駁車 → Sandman Hotel</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(74,158,255,0.15)">🏙️</div>
+          <div>
+            <div class="card-title">6/25（四）市區 Day1</div>
+            <div class="card-subtitle">東側路線：Canada Place → Gastown</div>
+          </div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row"><div class="info-label">早上</div><div class="info-value">搭 Canada Line → Waterfront 站 · 早餐</div></div>
+        <div class="info-row"><div class="info-label">上午</div><div class="info-value">Canada Place 海濱散步（免費）· 看水上飛機起降</div></div>
+        <div class="info-row"><div class="info-label">上午</div><div class="info-value">★ FlyOver Canada（需提前訂票，NT$900/人）</div></div>
+        <div class="info-row"><div class="info-label">午餐</div><div class="info-value">Gastown 附近餐廳</div></div>
+        <div class="info-row"><div class="info-label">下午</div><div class="info-value">Gastown 蒸汽鐘（每15分鐘噴氣，整點前5分鐘到）</div></div>
+        <div class="info-row"><div class="info-label">下午</div><div class="info-value">Water Street 漫步，維多利亞式紅磚建築街區</div></div>
+        <div class="info-row"><div class="info-label">晚餐</div><div class="info-value">Gastown 區餐廳</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(74,158,255,0.15)">🌳</div>
+          <div>
+            <div class="card-title">6/26（五）市區 Day2</div>
+            <div class="card-subtitle">西側路線：史丹利公園 → 固蘭島</div>
+          </div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row"><div class="info-label">早上</div><div class="info-value">搭 Canada Line → Burrard 站 · 早餐</div></div>
+        <div class="info-row"><div class="info-label">上午</div><div class="info-value">★ 史丹利公園騎腳踏車 Seawall（免費入場，腳踏車 NT$800/2hr）</div></div>
+        <div class="info-row"><div class="info-label">午餐</div><div class="info-value">West End 或 Denman Street 附近</div></div>
+        <div class="info-row"><div class="info-label">下午</div><div class="info-value">搭 Aquabus 小船（NT$120）→ 固蘭島市集</div></div>
+        <div class="info-row"><div class="info-label">下午</div><div class="info-value">固蘭島市集（免費入場）· Lee's Donuts 必吃</div></div>
+        <div class="info-row"><div class="info-label">晚餐</div><div class="info-value">Granville Island 或 Kitsilano 區</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(255,209,102,0.2)">🎆</div>
+          <div>
+            <div class="card-title">7/1（三）★ 加拿大國慶日</div>
+            <div class="card-subtitle">全天市區 · 英吉利灣煙火</div>
+          </div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-warn">
+          <div class="alert-icon">⚠️</div>
+          <div>全天留市區，不要安排遠行！</div>
+        </div>
+        <div class="info-row"><div class="info-label">全天</div><div class="info-value">Canada Place 嘉年華活動（免費）</div></div>
+        <div class="info-row"><div class="info-label">下午3點</div><div class="info-value">前往英吉利灣佔位（Carmana 步行 15 分鐘）</div></div>
+        <div class="info-row"><div class="info-label">晚上10點</div><div class="info-value">★ 英吉利灣國慶煙火（完全免費）</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(155,114,207,0.2)">🚡</div>
+          <div>
+            <div class="card-title">7/2（四）★ Sea to Sky Gondola</div>
+            <div class="card-subtitle">Squamish 近郊全天</div>
+          </div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row"><div class="info-label">08:30</div><div class="info-value">Canada Place 搭 Squamish Connector 接駁車</div></div>
+        <div class="info-row"><div class="info-label">09:30</div><div class="info-value">抵 Sea to Sky Gondola，搭纜車上升 880m</div></div>
+        <div class="info-row"><div class="info-label">上午</div><div class="info-value">★ Sky Pilot 吊橋（100公尺長）· 山頂觀景台</div></div>
+        <div class="info-row"><div class="info-label">中午</div><div class="info-value">山頂餐廳午餐 · 全景步道健行</div></div>
+        <div class="info-row"><div class="info-label">15:30</div><div class="info-value">接駁車返回溫哥華</div></div>
+        <div class="info-row"><div class="info-label">費用</div><div class="info-value">約 NT$4,000–5,000（兩人，含接駁）</div></div>
+        <div class="alert alert-warn" style="margin-top:8px">
+          <div class="alert-icon">⚠️</div>
+          <div>需提前網路訂購套票！seatoskygondola.com</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(255,140,66,0.2)">🛍️</div>
+          <div>
+            <div class="card-title">7/3（五）退房 → 購物</div>
+            <div class="card-subtitle">McArthurGlen Outlet · 深夜出發</div>
+          </div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row"><div class="info-label">10:00</div><div class="info-value">Carmana 退房</div></div>
+        <div class="info-row"><div class="info-label">10:30</div><div class="info-value">行李寄 Bounce Waterfront Station</div></div>
+        <div class="info-row"><div class="info-label">上午</div><div class="info-value">McArthurGlen Designer Outlet（搭 Canada Line）</div></div>
+        <div class="info-row"><div class="info-label">下午</div><div class="info-value">伴手禮最後採購 · 楓糖漿 · 冰酒</div></div>
+        <div class="info-row"><div class="info-label">23:00</div><div class="info-value">取回行李 → 前往 YVR 機場</div></div>
+        <div class="alert alert-warn" style="margin-top:8px">
+          <div class="alert-icon">⚠️</div>
+          <div>7/4 凌晨 <strong>01:30</strong> 出發，<strong>7/3 晚 11:00 前</strong>需抵達機場</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 洛磯山 ==================== -->
+  <div class="page" id="page-rocky">
+
+    <div class="card" style="border-color:rgba(76,175,138,0.4)">
+      <div class="card-summary">
+        <div class="info-row"><div class="info-label">旅行社</div><div class="info-value">Qutours Inc.（趣玩也）</div></div>
+        <div class="info-row"><div class="info-label">訂單</div><div class="info-value">200326000197809</div></div>
+        <div class="info-row"><div class="info-label">團號</div><div class="info-value" style="color:var(--accent2);font-weight:700;font-size:18px">BAA4</div></div>
+        <div class="info-row"><div class="info-label">出發</div><div class="info-value">2026/06/27（週六）</div></div>
+        <div class="info-row"><div class="info-label">人數</div><div class="info-value">3人（陳文俊、郭佩萍、陳宥中）</div></div>
+        <div class="info-row"><div class="info-label">客服</div><div class="info-value">886-939773711</div></div>
+      </div>
+    </div>
+
+    <div class="alert alert-danger" style="border-color:rgba(255,77,109,0.4)">
+      <div class="alert-icon">🚨</div>
+      <div>
+        <strong>集合：07:00</strong> River Rock Hotel 門口<br>
+        8811 River Rd, Richmond, BC V6X 3P8<br>
+        <strong>遲到 10 分鐘車子離開不等！</strong>
+      </div>
+    </div>
+
+    <div class="section-title">現場必付現金</div>
+    <div class="card" style="border-color:rgba(255,77,109,0.3)">
+      <div class="card-summary">
+        <div class="cost-row">
+          <div class="cost-name">★ 必付景點費（冰原雪車+硫磺山+夢蓮湖+國家公園）</div>
+          <div class="cost-amount" style="color:var(--danger)">USD$208/人</div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">司導服務費</div>
+          <div class="cost-amount" style="color:var(--danger)">USD$15/人/天</div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">燃油附加費</div>
+          <div class="cost-amount" style="color:var(--danger)">CAD$5/人/天</div>
+        </div>
+        <div class="divider"></div>
+        <div class="cost-row">
+          <div class="cost-name" style="font-weight:600">兩人4天合計（估算）</div>
+          <div class="cost-amount">~NT$18,000</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">4天行程</div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(76,175,138,0.2)">🚌</div>
+          <div>
+            <div class="card-title">D1 · 6/27（六）</div>
+            <div class="card-subtitle">溫哥華 → 基隆拿 → 灰熊鎮</div>
+          </div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row"><div class="info-label">景點</div><div class="info-value">菲沙河谷景觀公路（途經）</div></div>
+        <div class="info-row"><div class="info-label">景點</div><div class="info-value">基隆拿冰酒酒莊（45分鐘，可品酒）</div></div>
+        <div class="info-row"><div class="info-label">景點</div><div class="info-value">變色湖 Kalamalka Lake（15分鐘）</div></div>
+        <div class="info-row"><div class="info-label">住宿</div><div class="info-value">Sandman Hotel Revelstoke</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(76,175,138,0.2)">🧊</div>
+          <div>
+            <div class="card-title">D2 · 6/28（日）★ 精華</div>
+            <div class="card-subtitle">哥倫比亞冰川 → 班夫</div>
+          </div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row"><div class="info-label">途經</div><div class="info-value">冰河/優鶴/班夫 三大國家公園</div></div>
+        <div class="info-row"><div class="info-label">★精華</div><div class="info-value">哥倫比亞冰川（2.5小時）冰原雪車 + 天空步道</div></div>
+        <div class="info-row"><div class="info-label">途經</div><div class="info-value">弓湖 Bow Lake</div></div>
+        <div class="info-row"><div class="info-label">景點</div><div class="info-value">班夫小鎮（60分鐘）</div></div>
+        <div class="info-row"><div class="info-label">住宿</div><div class="info-value">班夫小鎮飯店（Elk+Avenue 等）</div></div>
+        <div class="alert alert-warn" style="margin-top:8px">
+          <div class="alert-icon">🧥</div>
+          <div>冰川區約 5–10°C，帶羽絨外套！</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(76,175,138,0.2)">🏔️</div>
+          <div>
+            <div class="card-title">D3 · 6/29（一）★ 精華</div>
+            <div class="card-subtitle">硫磺山 → 露易絲湖 → 夢蓮湖</div>
+          </div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row"><div class="info-label">★精華</div><div class="info-value">班夫硫磺山纜車（60分鐘）360度景觀</div></div>
+        <div class="info-row"><div class="info-label">景點</div><div class="info-value">弓河瀑布（10分鐘）</div></div>
+        <div class="info-row"><div class="info-label">★精華</div><div class="info-value">露易絲湖（90分鐘）</div></div>
+        <div class="info-row"><div class="info-label">★精華</div><div class="info-value">夢蓮湖（30分鐘）加拿大20元鈔票的景色</div></div>
+        <div class="info-row"><div class="info-label">住宿</div><div class="info-value">Hilltop Inn Salmon Arm</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon" style="background:rgba(76,175,138,0.2)">🚗</div>
+          <div>
+            <div class="card-title">D4 · 6/30（二）</div>
+            <div class="card-subtitle">返回溫哥華</div>
+          </div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row"><div class="info-label">景點</div><div class="info-value">太平洋鐵路「最後一根釘」紀念公園（20分鐘）</div></div>
+        <div class="info-row"><div class="info-label">景點</div><div class="info-value">甘露市花旗參工廠（45分鐘）</div></div>
+        <div class="info-row"><div class="info-label">景點</div><div class="info-value">希望鎮 Hope（30分鐘）</div></div>
+        <div class="info-row"><div class="info-label">返回</div><div class="info-value">菲沙河谷景觀公路 → 溫哥華（預計傍晚5–7點）</div></div>
+        <div class="info-row"><div class="info-label">下車點</div><div class="info-value">River Rock Hotel（原集合點）</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 交通 ==================== -->
+  <div class="page" id="page-transport">
+
+    <div class="section-title">Compass Card（康百世卡）</div>
+    <div class="card">
+      <div class="card-summary">
+        <div class="alert alert-info">
+          <div class="alert-icon">💙</div>
+          <div>搭乘 SkyTrain、公車、SeaBus 全部通用，比現金便宜</div>
+        </div>
+      </div>
+      <div class="card-header" onclick="toggleCard(this)" style="border-top:1px solid var(--border)">
+        <div class="card-header-left">
+          <div style="font-size:13px;font-weight:600">購買方式與詳細費用</div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="section-title" style="margin-top:4px">購買地點</div>
+        <div class="info-row"><div class="info-label">機場站</div><div class="info-value">YVR 抵達後直接在 SkyTrain 站自動售票機購買（推薦）</div></div>
+        <div class="info-row"><div class="info-label">其他</div><div class="info-value">所有 SkyTrain 站、SeaBus 碼頭、部分 London Drugs</div></div>
+        <div class="section-title">費用</div>
+        <div class="compass-fee"><span class="compass-fee-name">卡片押金（退卡可退）</span><span class="compass-fee-value">CAD$6</span></div>
+        <div class="compass-fee"><span class="compass-fee-name">最低首次儲值</span><span class="compass-fee-value">CAD$5</span></div>
+        <div class="compass-fee"><span class="compass-fee-name">成人單區票價（1-Zone）</span><span class="compass-fee-value">CAD$2.85</span></div>
+        <div class="compass-fee"><span class="compass-fee-name">成人兩區票價（2-Zone）</span><span class="compass-fee-value">CAD$4.20</span></div>
+        <div class="compass-fee"><span class="compass-fee-name">日票 DayPass（無限搭乘）</span><span class="compass-fee-value">CAD$12.55</span></div>
+        <div class="alert alert-warn" style="margin-top:8px">
+          <div class="alert-icon">⚠️</div>
+          <div><strong>機場附加費！</strong> 從 YVR 出發往市區，額外加收 <strong>CAD$6.50</strong>。但從市區去機場則免費。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Sandman Hotel 機場接駁</div>
+    <div class="card">
+      <div class="card-summary">
+        <div class="highlight-grid">
+          <div class="highlight-item green">
+            <div class="highlight-title">24小時營運</div>
+            <div class="highlight-desc">全天候服務，不限時間</div>
+          </div>
+          <div class="highlight-item accent">
+            <div class="highlight-title">每30–35分鐘</div>
+            <div class="highlight-desc">可能提前或延後10分鐘</div>
+          </div>
+          <div class="highlight-item gold">
+            <div class="highlight-title">無需預約</div>
+            <div class="highlight-desc">直接到候車區等待</div>
+          </div>
+          <div class="highlight-item purple">
+            <div class="highlight-title">完全免費</div>
+            <div class="highlight-desc">行李接送均不收費</div>
+          </div>
+        </div>
+        <div class="alert alert-info" style="margin-top:8px">
+          <div class="alert-icon">📍</div>
+          <div>候車位置：<strong>3樓出境大廳（Level 3 Departures）</strong><br>找「Courtesy Shuttle Pick up Area」，車上有飯店名稱</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">主要路線參考</div>
+    <div class="card">
+      <div class="card-summary">
+        <div class="info-row"><div class="info-label">Sandman→市區</div><div class="info-value">步行到 Bridgeport 站 → Canada Line → 約25分鐘</div></div>
+        <div class="info-row"><div class="info-label">YVR→市區</div><div class="info-value">Canada Line 直達，約25分鐘（注意機場附加費 CAD$6.50）</div></div>
+        <div class="info-row"><div class="info-label">市區→固蘭島</div><div class="info-value">搭 Aquabus 小船，NT$120</div></div>
+        <div class="info-row"><div class="info-label">市區→北溫哥華</div><div class="info-value">Waterfront 站搭 SeaBus，約12分鐘</div></div>
+        <div class="info-row"><div class="info-label">Carmana→Outlet</div><div class="info-value">Burrard 站 → Canada Line → Templeton 站，約30分鐘</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 待辦 ==================== -->
+  <div class="page" id="page-checklist">
+
+    <div class="section-title">🚨 緊急待辦（需本週完成）</div>
+
+    <div class="card" style="border-color:rgba(255,77,109,0.4)">
+      <div class="card-summary">
+        <div class="checklist-item">
+          <div class="check-icon">□</div>
+          <div class="check-content">
+            <div class="check-title">FlyOver Canada 訂票</div>
+            <div class="check-desc">6/25 使用，建議選 9:30 場次</div>
+            <div class="check-cost">NT$900/人 · flyovercanada.com</div>
+          </div>
+          <span class="badge badge-danger">待訂</span>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">□</div>
+          <div class="check-content">
+            <div class="check-title">Sea to Sky Gondola 套票</div>
+            <div class="check-desc">7/2 使用，含接駁車，需提前訂</div>
+            <div class="check-cost">NT$4,000–5,000 兩人 · seatoskygondola.com</div>
+          </div>
+          <span class="badge badge-danger">待訂</span>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">□</div>
+          <div class="check-content">
+            <div class="check-title">SIM卡 你：美加卡吃到飽（11天）</div>
+            <div class="check-desc">djbcard.com，可開熱點</div>
+            <div class="check-cost">價格待確認</div>
+          </div>
+          <span class="badge badge-danger">待買</span>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">□</div>
+          <div class="check-content">
+            <div class="check-title">SIM卡 媽媽：加拿大75GB（30天）</div>
+            <div class="check-desc">djbcard.com，含無限通話+1000分國際</div>
+            <div class="check-cost">價格待確認</div>
+          </div>
+          <span class="badge badge-danger">待買</span>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">□</div>
+          <div class="check-content">
+            <div class="check-title">旅遊保險（兩人）</div>
+            <div class="check-desc">強烈建議含醫療險，加拿大醫療費用極高</div>
+            <div class="check-cost">NT$4,000–6,000</div>
+          </div>
+          <span class="badge badge-danger">待買</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">出發前辦理</div>
+    <div class="card">
+      <div class="card-summary">
+        <div class="checklist-item">
+          <div class="check-icon">□</div>
+          <div class="check-content">
+            <div class="check-title">Bounce 行李寄存預訂（7/3）</div>
+            <div class="check-desc">Waterfront Station 旁，2件標準行李箱</div>
+            <div class="check-cost">NT$300–500</div>
+          </div>
+          <span class="badge badge-warn">待訂</span>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">□</div>
+          <div class="check-content">
+            <div class="check-title">換加幣現金</div>
+            <div class="check-desc">洛磯山現場必付費用用，建議出發前1週換</div>
+            <div class="check-cost">建議 CAD$600/人</div>
+          </div>
+          <span class="badge badge-warn">待辦</span>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">□</div>
+          <div class="check-content">
+            <div class="check-title">確認護照效期</div>
+            <div class="check-desc">需有效至 2027/01/05 以上（回程日+6個月）</div>
+          </div>
+          <span class="badge badge-warn">確認</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">✅ 已完成</div>
+    <div class="card">
+      <div class="card-summary">
+        <div class="checklist-item">
+          <div class="check-icon">✅</div>
+          <div class="check-content">
+            <div class="check-title">機票購買（香港航空，兩人）</div>
+            <div class="check-cost">NT$56,690 · ORD0030282733</div>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✅</div>
+          <div class="check-content">
+            <div class="check-title">香港電子港簽（兩人）</div>
+            <div class="check-desc">台灣居民預辦入境登記，記得列印 PDF</div>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✅</div>
+          <div class="check-content">
+            <div class="check-title">加拿大 eTA（兩人）</div>
+            <div class="check-desc">與護照綁定，無需列印</div>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✅</div>
+          <div class="check-content">
+            <div class="check-title">Sandman Hotel（6/24–6/27，3晚）</div>
+            <div class="check-cost">NT$30,667</div>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✅</div>
+          <div class="check-content">
+            <div class="check-title">Carmana Hotel（6/30–7/3，3晚）</div>
+            <div class="check-cost">NT$30,818（免費取消）</div>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✅</div>
+          <div class="check-content">
+            <div class="check-title">洛磯山4日團（Qutours BAA4）</div>
+            <div class="check-cost">NT$~40,000</div>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✅</div>
+          <div class="check-content">
+            <div class="check-title">Sandman 確認行李寄放免費</div>
+            <div class="check-desc">6/27–6/29 均可寄放，退房時至前台辦理</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 費用 ==================== -->
+  <div class="page" id="page-cost">
+
+    <div class="card">
+      <div class="card-summary">
+        <div class="cost-row">
+          <div class="cost-name">✈️ 機票（兩人）</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-success">✅已付</span>
+            <div class="cost-amount">56,690</div>
+          </div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🏨 Sandman Hotel（3晚）</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-success">✅已付</span>
+            <div class="cost-amount">30,667</div>
+          </div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🏠 Carmana Hotel（3晚）</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-success">✅已訂</span>
+            <div class="cost-amount">30,818</div>
+          </div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🏔️ 洛磯山團費（兩人）</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-success">✅已付</span>
+            <div class="cost-amount">~16,500</div>
+          </div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🏔️ 洛磯山現場費（景點+小費+燃油）</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-danger">現場現金</span>
+            <div class="cost-amount" style="color:var(--danger)">~18,000</div>
+          </div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🏔️ 洛磯山餐費（4天）</div>
+          <div class="cost-amount" style="color:var(--text2)">6,000–9,000</div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🎡 FlyOver Canada（兩人）</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-danger">待訂</span>
+            <div class="cost-amount">~1,800</div>
+          </div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🚡 Sea to Sky Gondola（兩人）</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-danger">待訂</span>
+            <div class="cost-amount">4,000–5,000</div>
+          </div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🍽️ 溫哥華餐飲（6天，兩人）</div>
+          <div class="cost-amount" style="color:var(--text2)">15,000–25,000</div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">📱 SIM卡（兩人）</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-danger">待買</span>
+            <div class="cost-amount" style="color:var(--text2)">待確認</div>
+          </div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🛡️ 旅遊保險（兩人）</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="badge badge-danger">待買</span>
+            <div class="cost-amount">4,000–6,000</div>
+          </div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🧳 Bounce 行李寄存</div>
+          <div class="cost-amount" style="color:var(--text2)">300–500</div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🚌 Compass Card（兩人）</div>
+          <div class="cost-amount" style="color:var(--text2)">~1,500</div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">🛍️ 購物伴手禮</div>
+          <div class="cost-amount" style="color:var(--text2)">5,000–15,000</div>
+        </div>
+        <div class="cost-row">
+          <div class="cost-name">💰 備用金</div>
+          <div class="cost-amount" style="color:var(--text2)">5,000</div>
+        </div>
+        <div class="cost-total-row">
+          <div class="cost-total-name">兩人預估總費用</div>
+          <div class="cost-total-amount">NT$190,000–230,000</div>
+        </div>
+        <div style="text-align:right;font-size:11px;color:var(--text2);margin-top:4px">每人約 NT$95,000–115,000</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-spacer"></div>
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.card-chevron');
+  if (body && body.classList.contains('card-body')) {
+    body.classList.toggle('open');
+    if (chevron) chevron.classList.toggle('open');
+  }
+}
+</script>
+</body>
+</html>
