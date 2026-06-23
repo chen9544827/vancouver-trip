@@ -269,6 +269,27 @@
   .emergency-num { font-size: 15px; font-weight: 700; color: var(--accent); }
 
 
+
+  /* Phrase rows */
+  .phrase-row {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .phrase-row:last-child { border-bottom: none; }
+  .phrase-row.danger .phrase-en { color: var(--danger); }
+  .phrase-row.danger .phrase-zh { color: var(--danger); }
+  .phrase-zh {
+    font-size: 12px;
+    color: var(--text2);
+    margin-bottom: 3px;
+  }
+  .phrase-en {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
   /* Option cards */
   .option-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
   .option-card {
@@ -325,6 +346,7 @@
     <button class="tab" onclick="showPage('hotel')">住宿</button>
     <button class="tab" onclick="showPage('rocky')">洛磯山</button>
     <button class="tab" onclick="showPage('transport')">交通</button>
+    <button class="tab" onclick="showPage('english')">實用英文</button>
     <button class="tab" onclick="showPage('emergency')">緊急資訊</button>
   </div>
 </div>
@@ -1495,6 +1517,268 @@
       </div>
     </div>
   </div>
+
+  <!-- ===== 實用英文 ===== -->
+  <div class="page" id="page-english">
+
+    <div class="sec-label">🏨 飯店 Hotel</div>
+    <div class="card">
+      <div class="card-always">
+        <div class="phrase-row">
+          <div class="phrase-zh">我有訂房，姓陳</div>
+          <div class="phrase-en">I have a reservation under the name Chen.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">可以提早入住嗎？</div>
+          <div class="phrase-en">Is early check-in available?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">可以幫我寄放行李嗎？</div>
+          <div class="phrase-en">Could you store our luggage for us?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">機場接駁車在哪裡搭？</div>
+          <div class="phrase-en">Where can I catch the hotel shuttle?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">WiFi 密碼是什麼？</div>
+          <div class="phrase-en">What's the WiFi password?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">浴室水龍頭壞了</div>
+          <div class="phrase-en">The faucet in the bathroom is broken.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">能幫我叫計程車嗎？</div>
+          <div class="phrase-en">Could you call a cab for us?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label">🚇 交通 Transport</div>
+    <div class="card">
+      <div class="card-always">
+        <div class="phrase-row">
+          <div class="phrase-zh">請問到市中心怎麼搭？</div>
+          <div class="phrase-en">How do I get to downtown from here?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">這班車到 Waterfront 站嗎？</div>
+          <div class="phrase-en">Does this train go to Waterfront Station?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">我要買 Compass Card</div>
+          <div class="phrase-en">I'd like to get a Compass Card, please.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">請問在哪裡可以加值？</div>
+          <div class="phrase-en">Where can I add money to my Compass Card?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">請帶我去這個地址</div>
+          <div class="phrase-en">Please take me to this address. <span style="color:var(--text3)">(show phone)</span></div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">請在這裡停車，謝謝</div>
+          <div class="phrase-en">You can drop me off here, thank you.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">Aquabus 在哪裡搭？</div>
+          <div class="phrase-en">Where do I catch the Aquabus to Granville Island?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label">🍽️ 餐廳 Restaurant</div>
+    <div class="card">
+      <div class="card-always">
+        <div class="phrase-row">
+          <div class="phrase-zh">兩位，請問有位子嗎？</div>
+          <div class="phrase-en">Table for two, please.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">可以看菜單嗎？</div>
+          <div class="phrase-en">Could we have a menu, please?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">這個有什麼推薦？</div>
+          <div class="phrase-en">What do you recommend?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">我對堅果過敏</div>
+          <div class="phrase-en">I'm allergic to nuts.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">可以分開結帳嗎？</div>
+          <div class="phrase-en">Can we split the bill?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">小費已包含在內嗎？</div>
+          <div class="phrase-en">Is the tip included?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">可以打包嗎？</div>
+          <div class="phrase-en">Can I get this to go?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">這個不是我點的</div>
+          <div class="phrase-en">I didn't order this.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label">🛍️ 購物 Shopping</div>
+    <div class="card">
+      <div class="card-always">
+        <div class="phrase-row">
+          <div class="phrase-zh">可以試穿嗎？</div>
+          <div class="phrase-en">Can I try this on?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">有沒有大一號的？</div>
+          <div class="phrase-en">Do you have this in a larger size?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">這個多少錢？</div>
+          <div class="phrase-en">How much is this?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">有沒有打折？</div>
+          <div class="phrase-en">Is there any discount?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">刷卡可以嗎？</div>
+          <div class="phrase-en">Do you accept credit cards?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">我只是看看</div>
+          <div class="phrase-en">I'm just browsing, thank you.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">可以退貨嗎？</div>
+          <div class="phrase-en">Can I get a refund?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label">🏔️ 洛磯山 Rocky Mountain</div>
+    <div class="card">
+      <div class="card-always">
+        <div class="phrase-row">
+          <div class="phrase-zh">我們參加 Qutours 的團</div>
+          <div class="phrase-en">We're with the Qutours group.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">導遊在哪裡？</div>
+          <div class="phrase-en">Where is our tour guide?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">我們幾點要集合？</div>
+          <div class="phrase-en">What time should we be back on the bus?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">冰原雪車要在哪裡搭？</div>
+          <div class="phrase-en">Where do we board the Ice Explorer?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">需要帶什麼上冰川？</div>
+          <div class="phrase-en">What should we bring onto the glacier?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">這裡可以拍照嗎？</div>
+          <div class="phrase-en">Is it okay to take photos here?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label">🚨 緊急狀況 Emergency</div>
+    <div class="card">
+      <div class="card-always">
+        <div class="phrase-row danger">
+          <div class="phrase-zh">請叫救護車！</div>
+          <div class="phrase-en">Please call an ambulance!</div>
+        </div>
+        <div class="phrase-row danger">
+          <div class="phrase-zh">我需要幫助</div>
+          <div class="phrase-en">I need help!</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">我的護照不見了</div>
+          <div class="phrase-en">I lost my passport.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">我的手機被偷了</div>
+          <div class="phrase-en">My phone was stolen.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">最近的醫院在哪裡？</div>
+          <div class="phrase-en">Where is the nearest hospital?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">我需要看醫生</div>
+          <div class="phrase-en">I need to see a doctor.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">我對這個藥過敏</div>
+          <div class="phrase-en">I'm allergic to this medication.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">我迷路了</div>
+          <div class="phrase-en">I'm lost.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label">☁️ 天氣 Weather</div>
+    <div class="card">
+      <div class="card-always">
+        <div class="phrase-row">
+          <div class="phrase-zh">今天天氣怎麼樣？</div>
+          <div class="phrase-en">What's the weather like today?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">今天會下雨嗎？</div>
+          <div class="phrase-en">Is it going to rain today?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">山上很冷嗎？</div>
+          <div class="phrase-en">Is it cold up on the mountain?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label">🤝 基本社交 Social</div>
+    <div class="card">
+      <div class="card-always">
+        <div class="phrase-row">
+          <div class="phrase-zh">可以幫我們拍照嗎？</div>
+          <div class="phrase-en">Could you take a photo of us?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">我聽不太懂，可以說慢一點嗎？</div>
+          <div class="phrase-en">I didn't catch that. Could you speak more slowly?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">請再說一次</div>
+          <div class="phrase-en">Could you repeat that, please?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">請問廁所在哪裡？</div>
+          <div class="phrase-en">Where is the restroom?</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">不好意思，打擾一下</div>
+          <div class="phrase-en">Excuse me.</div>
+        </div>
+        <div class="phrase-row">
+          <div class="phrase-zh">非常謝謝你</div>
+          <div class="phrase-en">Thank you so much!</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 
   <!-- ===== 緊急資訊 ===== -->
   <div class="page" id="page-emergency">
